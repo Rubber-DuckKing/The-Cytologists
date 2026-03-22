@@ -1,9 +1,74 @@
-[gd_scene load_steps=2 format=3 uid="uid://dulf2yhtx8uug"]
+[gd_scene load_steps=8 format=3 uid="uid://dulf2yhtx8uug"]
 
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://c1ewkrk7le0p8" path="res://Scripts/main.gd" id="1_8gbba"]
+[ext_resource type="PackedScene" uid="uid://cbwf0f2rhdw0g" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://btablgw4shl4p" path="res://Scenes/game_ui.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://btxu3mvuef8ii" path="res://Scenes/enemy_spawner.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://cps1vm3spwlll" path="res://Scenes/loading_screen.tscn" id="6_21xkr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jjvhh"]
+radius = 11.0
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_8gbba")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(254, 318)
-texture = ExtResource("1_jjgbg")
+position = Vector2(1496.5, 992.5)
+scale = Vector2(23.351563, 15.4921875)
+texture = ExtResource("2_bo1nx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(569, 358)
+zoom = Vector2(2, 2)
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+one_shot = true
+
+[node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+position = Vector2(1504, 1011)
+
+[node name="GameUI" parent="." instance=ExtResource("4_jjvhh")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Mouse" type="Area2D" parent="."]
+position = Vector2(287, 248)
+scale = Vector2(0.5, 0.5)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse"]
+shape = SubResource("CircleShape2D_jjvhh")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("5_kry3j")]
+
+[node name="LoadingScreen" parent="." instance=ExtResource("6_21xkr")]
+
+[node name="WaveStartLabel" type="Label" parent="."]
+process_mode = 2
+offset_left = 943.0
+offset_top = 634.0
+offset_right = 2099.0
+offset_bottom = 839.0
+theme_override_font_sizes/font_size = 150
+text = "Wave 1... FIGHT!"
+
+[node name="WaveStartTimer" type="Timer" parent="."]
+process_mode = 2
+one_shot = true
+
+[node name="DeathLabel" type="Label" parent="."]
+process_mode = 2
+offset_left = 922.0
+offset_top = 548.0
+offset_right = 2113.0
+offset_bottom = 907.0
+theme_override_font_sizes/font_size = 130
+text = "You Died!
+Survived: 1 wave(s)"
+
+[connection signal="timeout" from="Camera2D/Timer" to="." method="_on_timer_timeout"]
+[connection signal="main_died" from="Player" to="." method="_on_player_main_died"]
+[connection signal="camera_reset" from="GameUI" to="." method="_on_game_ui_camera_reset"]
+[connection signal="area_shape_entered" from="Mouse" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="area_shape_exited" from="Mouse" to="." method="_on_area_2d_area_shape_exited"]
+[connection signal="timeout" from="WaveStartTimer" to="." method="_on_wave_start_timer_timeout"]

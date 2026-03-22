@@ -11,5 +11,29 @@ config_version=5
 [application]
 
 config/name="[Game Name]"
+run/main_scene="uid://dulf2yhtx8uug"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=3000
+window/size/viewport_height=2000
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/softbody2d/plugin.cfg")
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_physics/layer_1="UIElement"
+2d_physics/layer_2="Mouse"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Enemy"
+2d_physics/layer_5="EnemySpacing"
+2d_physics/layer_6="Bullet"
