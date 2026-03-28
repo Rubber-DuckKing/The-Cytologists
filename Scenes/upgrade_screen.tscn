@@ -1,0 +1,96 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2jypfkuovj3s"]
+
+[ext_resource type="Script" uid="uid://ddnkwql3qytm5" path="res://Scripts/upgrade_screen.gd" id="1_g1a74"]
+[ext_resource type="PackedScene" uid="uid://dnvm2le3i0glm" path="res://Scenes/clone.tscn" id="2_g1a74"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0q7o"]
+bg_color = Color(0.18345043, 0.7449682, 0.9061694, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="UpgradeScreen" type="Node2D"]
+process_mode = 2
+script = ExtResource("1_g1a74")
+clone_scene = ExtResource("2_g1a74")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -250.0
+offset_top = -300.0
+offset_right = 250.0
+offset_bottom = 300.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0q7o")
+
+[node name="Button0" type="Button" parent="."]
+process_mode = 2
+offset_left = -213.0
+offset_top = -104.0
+offset_right = -90.0
+offset_bottom = 59.0
+
+[node name="UpgradeLabel" type="Label" parent="Button0"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 184.0
+offset_right = 121.0
+offset_bottom = 376.0
+text = "ijhugyf"
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="."]
+process_mode = 2
+offset_left = -65.0
+offset_top = -103.0
+offset_right = 61.0
+offset_bottom = 62.0
+
+[node name="UpgradeLabel" type="Label" parent="Button1"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 181.0
+offset_right = 125.0
+offset_bottom = 372.0
+text = "oihugyt"
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="."]
+process_mode = 2
+offset_left = 92.0
+offset_top = -103.0
+offset_right = 220.0
+offset_bottom = 60.0
+
+[node name="UpgradeLabel" type="Label" parent="Button2"]
+layout_mode = 0
+offset_top = 185.0
+offset_right = 129.0
+offset_bottom = 377.0
+text = "ijohugyftcg"
+autowrap_mode = 3
+
+[node name="Label" type="Label" parent="."]
+offset_left = -216.0
+offset_top = -282.0
+offset_right = 225.0
+offset_bottom = -113.0
+theme_override_font_sizes/font_size = 60
+text = "CHOOSE YOUR 
+UPGRADE:"
+horizontal_alignment = 1
+
+[node name="DisabledTimer" type="Timer" parent="."]
+process_mode = 2
+wait_time = 0.5
+one_shot = true
+
+[connection signal="pressed" from="Button0" to="." method="_on_button_0_pressed"]
+[connection signal="pressed" from="Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="timeout" from="DisabledTimer" to="." method="_on_disabled_timer_timeout"]

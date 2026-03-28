@@ -1,41 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbwf0f2rhdw0g"]
+[gd_scene load_steps=5 format=3 uid="uid://dnvm2le3i0glm"]
 
-[ext_resource type="Script" uid="uid://6mp37feabkrk" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_v0iea"]
-[ext_resource type="PackedScene" uid="uid://ciys8i8yxd3ku" path="res://Scenes/bombardment_bullet.tscn" id="3_fkybt"]
+[ext_resource type="Script" uid="uid://c8bet64dn22k7" path="res://Scripts/clone.gd" id="1_eeqi5"]
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="2_p7wtv"]
+[ext_resource type="PackedScene" uid="uid://ciys8i8yxd3ku" path="res://Scenes/bombardment_bullet.tscn" id="2_r8xe5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqhld"]
 radius = 70.0
 
-[node name="Player" type="CharacterBody2D"]
-z_index = 1
-collision_layer = 4
-collision_mask = 8
+[node name="Clone" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 72
 motion_mode = 1
-script = ExtResource("1_cvnsp")
-bombardment_bullet_scene = ExtResource("3_fkybt")
+script = ExtResource("1_eeqi5")
+bombardment_bullet_scene = ExtResource("2_r8xe5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_cvnsp")
+shape = SubResource("CircleShape2D_cqhld")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_v0iea")
+texture = ExtResource("2_p7wtv")
 
 [node name="Health" type="Label" parent="."]
-offset_left = -22.0
-offset_top = -92.0
-offset_right = 21.0
-offset_bottom = -69.0
+offset_left = -23.0
+offset_top = -93.0
+offset_right = 20.0
+offset_bottom = -70.0
 text = "10/10"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-process_mode = 3
-zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
-limit_right = 3000
-limit_bottom = 2000
-position_smoothing_enabled = true
 
 [node name="AttackTimer" type="Timer" parent="."]
 one_shot = true

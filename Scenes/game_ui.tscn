@@ -1,35 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://btablgw4shl4p"]
+[gd_scene format=3 uid="uid://btablgw4shl4p"]
 
-[ext_resource type="Script" uid="uid://30cmcqu1pesq" path="res://Scripts/game_ui.gd" id="1_gek4i"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gek4i"]
-size = Vector2(788, 236)
-
-[node name="GameUI" type="Node2D"]
-position = Vector2(1500, 1000)
-script = ExtResource("1_gek4i")
-
-[node name="CameraResetButton" type="Button" parent="."]
-offset_left = 641.0
-offset_top = 680.0
-offset_right = 1429.0
-offset_bottom = 921.0
-theme_override_font_sizes/font_size = 100
-text = "Reset Camera"
-
-[node name="ButtonCollider" type="Area2D" parent="CameraResetButton"]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraResetButton/ButtonCollider"]
-position = Vector2(396, 121)
-shape = SubResource("RectangleShape2D_gek4i")
+[node name="GameUI" type="CanvasLayer"]
 
 [node name="XPLabel" type="Label" parent="."]
-offset_left = -185.0
-offset_top = -931.0
-offset_right = 589.0
-offset_bottom = -658.0
-theme_override_font_sizes/font_size = 100
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 273.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 200
 text = "XP: 0/30"
-
-[connection signal="pressed" from="CameraResetButton" to="." method="_on_camera_reset_button_pressed"]
+horizontal_alignment = 1

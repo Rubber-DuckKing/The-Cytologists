@@ -6,38 +6,24 @@
 [ext_resource type="PackedScene" uid="uid://btablgw4shl4p" path="res://Scenes/game_ui.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://btxu3mvuef8ii" path="res://Scenes/enemy_spawner.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://cps1vm3spwlll" path="res://Scenes/loading_screen.tscn" id="6_21xkr"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jjvhh"]
-radius = 11.0
+[ext_resource type="PackedScene" uid="uid://c2jypfkuovj3s" path="res://Scenes/upgrade_screen.tscn" id="7_6bp64"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_8gbba")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1496.5, 992.5)
-scale = Vector2(23.351563, 15.4921875)
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(1486.0001, 993.00006)
+scale = Vector2(26.179688, 18.9375)
 texture = ExtResource("2_bo1nx")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(569, 358)
-zoom = Vector2(2, 2)
-
-[node name="Timer" type="Timer" parent="Camera2D"]
-one_shot = true
+[node name="UpgradeBackground" type="Sprite2D" parent="."]
+process_mode = 2
+position = Vector2(1695, 1015)
+scale = Vector2(13.179687, 9.390624)
+texture = ExtResource("2_bo1nx")
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(1504, 1011)
-
-[node name="GameUI" parent="." instance=ExtResource("4_jjvhh")]
-scale = Vector2(0.5, 0.5)
-
-[node name="Mouse" type="Area2D" parent="."]
-position = Vector2(287, 248)
-scale = Vector2(0.5, 0.5)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse"]
-shape = SubResource("CircleShape2D_jjvhh")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_kry3j")]
 
@@ -66,9 +52,54 @@ theme_override_font_sizes/font_size = 130
 text = "You Died!
 Survived: 1 wave(s)"
 
-[connection signal="timeout" from="Camera2D/Timer" to="." method="_on_timer_timeout"]
+[node name="GameUI" parent="." instance=ExtResource("4_jjvhh")]
+
+[node name="UpgradeScreen" parent="." instance=ExtResource("7_6bp64")]
+z_index = 1
+position = Vector2(-614, -210)
+
+[node name="StartScreen" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(1519.4999, 984.9999)
+scale = Vector2(25.460936, 17.828125)
+texture = ExtResource("2_bo1nx")
+
+[node name="StartButton" type="Button" parent="."]
+process_mode = 2
+z_index = 1
+offset_left = 692.0
+offset_top = 849.0
+offset_right = 2316.0
+offset_bottom = 1163.0
+theme_override_font_sizes/font_size = 200
+text = "START
+"
+
+[node name="GameLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 478.0
+offset_top = 296.0
+offset_right = 2493.0
+offset_bottom = 705.0
+theme_override_font_sizes/font_size = 300
+text = "[GAME NAME]"
+
+[node name="CreditsLabel" type="Label" parent="."]
+z_index = 1
+offset_left = 511.0
+offset_top = 1226.0
+offset_right = 2441.0
+offset_bottom = 1923.0
+theme_override_font_sizes/font_size = 100
+text = "CREDITS:
+Ben Chen - 
+Ethan Dorosz - Lead Programmer
+Rizul Vyas -
+Stanely Lin - "
+autowrap_mode = 3
+
 [connection signal="main_died" from="Player" to="." method="_on_player_main_died"]
-[connection signal="camera_reset" from="GameUI" to="." method="_on_game_ui_camera_reset"]
-[connection signal="area_shape_entered" from="Mouse" to="." method="_on_area_2d_area_shape_entered"]
-[connection signal="area_shape_exited" from="Mouse" to="." method="_on_area_2d_area_shape_exited"]
+[connection signal="selected_for_upgrade" from="Player" to="." method="_on_player_selected_for_upgrade"]
 [connection signal="timeout" from="WaveStartTimer" to="." method="_on_wave_start_timer_timeout"]
+[connection signal="chosen_upgrade" from="UpgradeScreen" to="." method="_on_upgrade_screen_chosen_upgrade"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

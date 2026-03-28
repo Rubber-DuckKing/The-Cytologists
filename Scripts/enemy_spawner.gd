@@ -4,6 +4,9 @@ extends Node2D
 var spawn_points := []
 var time: float = 1.0
 var max_enemies: int = 5
+var health = 5
+var damage = 2
+var xp_amount = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +30,14 @@ func _on_timer_timeout() -> void:
 	enemy.position = spawn.position
 	
 	enemy.speed = speed
+	
+	enemy.health = health
+	
+	enemy.xp_amount = xp_amount
+	
+	enemy.max_health = health
+	
+	enemy.damage = damage
 	
 	main.add_child(enemy)
 	

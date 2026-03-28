@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 @export var bombardment_bullet_scene: PackedScene
 
-signal main_died
 signal selected_for_upgrade
 
-var speed = 700
+var main
+var speed = 500
 var push_force = 80.0
 var health = 10
 var max_health = 10
@@ -20,8 +20,7 @@ var has_bombardment: bool = false
 var bombardment_bullet_damage = 2
 
 func _ready() -> void:
-	var main = get_tree().current_scene
-	self.add_to_group("cells")
+	main = get_tree().current_scene
 	main.connect_cell(self)
 	screen_size = get_viewport_rect().size
 	screen_size.x -= 65
@@ -48,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 	var start_clamp = Vector2(65, 65)
 	global_position = global_position.clamp(start_clamp, screen_size)
 	
-	if distance(get_global_mouse_position(), global_position) > 10:
+	if distance(main.get_child(2).global_position, global_position) > 10:
 		get_input()
 	else:
 		velocity = Vector2.ZERO
@@ -60,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 func get_input():
-	var input_dir = get_global_mouse_position() - global_position
+	var input_dir = main.get_child(2).global_position - global_position
 	velocity = input_dir.normalized() * speed
 
 func hit(hit_damage: int):
@@ -70,8 +69,7 @@ func hit(hit_damage: int):
 		health -= int(hit_damage / resistance)
 	if int(health) <= 0:
 		health = 0
-		$Camera2D.position_smoothing_enabled = false
-		emit_signal.call_deferred("main_died")
+		call_deferred("queue_free")
 	$Health.text = str(int(health)) + "/" + str(int(max_health))
 
 func distance(pos1: Vector2, pos2: Vector2) -> float:
@@ -89,16 +87,23 @@ func _on_regenerate_timer_timeout() -> void:
 		$Health.text = str(int(health)) + "/" + str(int(max_health))
 
 func _on_bombardment_timer_timeout() -> void:
-	var main = get_tree().current_scene
-	
 	var bullet = bombardment_bullet_scene.instantiate()
 	
 	bullet.global_position = global_position
 	
+	var shortest_dist = 100000000
+	var closest_enemy
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if shortest_dist > distance(global_position, enemy.global_position):
+			shortest_dist = distance(global_position, enemy.global_position)
+			closest_enemy = enemy
+	
+	bullet.target = closest_enemy
+	
 	bullet.damage = bombardment_bullet_damage
 	
-	main.add_child(bullet)
-	
 	bullet.find_closest_enemy()
+	
+	main.add_child(bullet)
 	
 	bullet.add_to_group("bullets")
