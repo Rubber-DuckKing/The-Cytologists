@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhikx7b073o4f"]
+
+[ext_resource type="Script" uid="uid://dou34g6bo8x71" path="res://Scripts/bullet.gd" id="1_oduel"]
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_xjght"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xjght"]
+radius = 120.0
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 32
+collision_mask = 68
+script = ExtResource("1_oduel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xjght")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_xjght")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_timer_timeout"]

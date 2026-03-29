@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbwf0f2rhdw0g"]
+
+[ext_resource type="Script" uid="uid://6mp37feabkrk" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://ciys8i8yxd3ku" path="res://Scenes/bombardment_bullet.tscn" id="3_fkybt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+radius = 70.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 8
+motion_mode = 1
+script = ExtResource("1_cvnsp")
+bombardment_bullet_scene = ExtResource("3_fkybt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v0iea")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 3000
+limit_bottom = 2000
+position_smoothing_enabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="UpgradeButton" type="Button" parent="."]
+process_mode = 2
+offset_left = -62.0
+offset_top = -63.0
+offset_right = 63.0
+offset_bottom = 63.0
+
+[node name="RegenerateTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BombardmentTimer" type="Timer" parent="."]
+wait_time = 7.0
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="pressed" from="UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="timeout" from="RegenerateTimer" to="." method="_on_regenerate_timer_timeout"]
+[connection signal="timeout" from="BombardmentTimer" to="." method="_on_bombardment_timer_timeout"]

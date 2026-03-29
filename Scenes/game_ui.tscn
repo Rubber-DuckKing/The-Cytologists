@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://btablgw4shl4p"]
+
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_gek4i"]
+[ext_resource type="Script" uid="uid://clvxph8nl6jwn" path="res://Scripts/game_ui.gd" id="2_ui"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw2rt"]
+bg_color = Color(0.21568628, 0.21568628, 0.21568628, 0.89411765)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xi5v6"]
+bg_color = Color(0.9705612, 0.7957391, 0.54469925, 1)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("2_ui")
+player_icon = ExtResource("1_gek4i")
+clone_icon = ExtResource("1_gek4i")
+
+[node name="TopMargin" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="XPPanel" type="PanelContainer" parent="TopMargin"]
+layout_mode = 2
+
+[node name="XPBar" type="ProgressBar" parent="TopMargin/XPPanel"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="TopMargin/XPPanel/XPBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -179.0
+offset_right = 179.0
+offset_bottom = 134.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "LEVEL 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="XPValueLabel" type="Label" parent="TopMargin/XPPanel/XPBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 15.0
+offset_right = -50.0
+offset_bottom = 17.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 100
+text = "0 / 30"
+
+[node name="CellBarTemplate" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 110)
+offset_left = 24.0
+offset_top = 500.0
+offset_right = 520.0
+offset_bottom = 610.0
+
+[node name="Margin" type="MarginContainer" parent="CellBarTemplate"]
+layout_mode = 2
+
+[node name="Row" type="HBoxContainer" parent="CellBarTemplate/Margin"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CellBarTemplate/Margin/Row"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="CellBarTemplate/Margin/Row"]
+layout_mode = 2
+
+[node name="CellName" type="Label" parent="CellBarTemplate/Margin/Row/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="HealthBar" type="ProgressBar" parent="CellBarTemplate/Margin/Row/Content"]
+custom_minimum_size = Vector2(350, 64)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bw2rt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xi5v6")
+show_percentage = false
+
+[node name="LeftMargin" type="MarginContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 500.0
+offset_right = 520.0
+offset_bottom = -240.0
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="HPBars" type="VBoxContainer" parent="LeftMargin"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="BottomLeftMargin" type="MarginContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -184.0
+offset_right = 520.0
+offset_bottom = -24.0
+grow_vertical = 0
+
+[node name="AttackPanel" type="PanelContainer" parent="BottomLeftMargin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bw2rt")
+
+[node name="AttackContent" type="VBoxContainer" parent="BottomLeftMargin/AttackPanel"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AttackLabel" type="Label" parent="BottomLeftMargin/AttackPanel/AttackContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "ATTACK READY"
+
+[node name="AttackBar" type="ProgressBar" parent="BottomLeftMargin/AttackPanel/AttackContent"]
+custom_minimum_size = Vector2(420, 48)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bw2rt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xi5v6")
+max_value = 1.0
+value = 1.0
+show_percentage = false

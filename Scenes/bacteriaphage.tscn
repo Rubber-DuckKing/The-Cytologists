@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcqdxhwd8vy3f"]
+
+[ext_resource type="Script" uid="uid://da5qj5s0lp4bp" path="res://Scripts/bacteriaphage.gd" id="1_1wpre"]
+[ext_resource type="PackedScene" uid="uid://bhikx7b073o4f" path="res://Scenes/bullet.tscn" id="2_7xq06"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wpre"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wpre"]
+radius = 100.0
+
+[node name="Bacteriaphage" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 76
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_1wpre")
+bullet_scene = ExtResource("2_7xq06")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.0000086, 0.5000019)
+scale = Vector2(134, 126.999985)
+texture = SubResource("PlaceholderTexture2D_1wpre")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1wpre")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MoveBackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Health" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_top = -127.0
+offset_right = 40.0
+offset_bottom = -62.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "5/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="MoveBackTimer" to="." method="_on_move_back_timer_timeout"]

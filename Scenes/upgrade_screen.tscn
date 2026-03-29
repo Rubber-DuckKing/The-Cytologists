@@ -1,0 +1,117 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2jypfkuovj3s"]
+
+[ext_resource type="Script" uid="uid://ddnkwql3qytm5" path="res://Scripts/upgrade_screen.gd" id="1_g1a74"]
+[ext_resource type="PackedScene" uid="uid://dnvm2le3i0glm" path="res://Scenes/clone.tscn" id="2_g1a74"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0q7o"]
+bg_color = Color(0.18345043, 0.7449682, 0.9061694, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="UpgradeScreen" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_g1a74")
+clone_scene = ExtResource("2_g1a74")
+
+[node name="UIRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UIRoot"]
+layout_mode = 0
+offset_left = -700.0
+offset_top = -507.0
+offset_right = 774.5
+offset_bottom = 575.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0q7o")
+
+[node name="Button0" type="Button" parent="UIRoot"]
+process_mode = 2
+layout_mode = 0
+offset_left = -557.0
+offset_top = -304.0
+offset_right = -301.0
+offset_bottom = 8.0
+
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button0"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = 336.0
+offset_right = 332.0
+offset_bottom = 848.0
+theme_override_font_sizes/font_size = 64
+text = "ijhugyf"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Button1" type="Button" parent="UIRoot"]
+process_mode = 2
+layout_mode = 0
+offset_left = -76.0
+offset_top = -304.0
+offset_right = 180.0
+offset_bottom = 8.0
+
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button1"]
+layout_mode = 0
+offset_left = -69.5
+offset_top = 333.0
+offset_right = 342.5
+offset_bottom = 845.0
+theme_override_font_sizes/font_size = 64
+text = "oihugyt"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="UIRoot"]
+process_mode = 2
+layout_mode = 0
+offset_left = 411.0
+offset_top = -304.0
+offset_right = 667.0
+offset_bottom = 8.0
+
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button2"]
+layout_mode = 0
+offset_left = -78.0
+offset_top = 337.0
+offset_right = 334.0
+offset_bottom = 849.0
+theme_override_font_sizes/font_size = 64
+text = "ijohugyftcg"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label" type="Label" parent="UIRoot"]
+layout_mode = 0
+offset_left = -680.0
+offset_top = -488.0
+offset_right = 770.0
+offset_bottom = -364.0
+theme_override_font_sizes/font_size = 156
+text = "CHOOSE YOUR UPGRADE"
+horizontal_alignment = 1
+
+[node name="DisabledTimer" type="Timer" parent="UIRoot"]
+process_mode = 2
+wait_time = 0.5
+one_shot = true
+
+[connection signal="pressed" from="UIRoot/Button0" to="." method="_on_button_0_pressed"]
+[connection signal="pressed" from="UIRoot/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="UIRoot/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="timeout" from="UIRoot/DisabledTimer" to="." method="_on_disabled_timer_timeout"]

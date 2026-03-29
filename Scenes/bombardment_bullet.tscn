@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciys8i8yxd3ku"]
+
+[ext_resource type="Script" uid="uid://n0t7wcjs8wn8" path="res://Scripts/bombardment_bullet.gd" id="1_syyfj"]
+[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="2_fa7iq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_heawe"]
+radius = 23.0
+
+[node name="BombardmentBullet" type="Area2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_syyfj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_heawe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5.9604645e-08, 2.3841858e-07)
+scale = Vector2(0.29687497, 0.3046875)
+texture = ExtResource("2_fa7iq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
