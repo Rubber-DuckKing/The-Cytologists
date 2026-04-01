@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://btxu3mvuef8ii"]
+[gd_scene load_steps=4 format=3 uid="uid://btxu3mvuef8ii"]
 
 [ext_resource type="Script" uid="uid://hexbsg0s03lr" path="res://Scripts/enemy_spawner.gd" id="1_4l55s"]
 [ext_resource type="PackedScene" uid="uid://dcqdxhwd8vy3f" path="res://Scenes/bacteriaphage.tscn" id="2_8h7h8"]
+[ext_resource type="PackedScene" uid="uid://rmnv1c7mny8v" path="res://Scenes/virus.tscn" id="3_h0v5x"]
 
 [node name="EnemySpawner" type="Node2D"]
 script = ExtResource("1_4l55s")
 enemy_scene = ExtResource("2_8h7h8")
+virus_scene = ExtResource("3_h0v5x")
+virus_spawn_chance = 0.25
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(86, -58)

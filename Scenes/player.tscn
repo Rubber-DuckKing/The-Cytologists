@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbwf0f2rhdw0g"]
+[gd_scene format=3 uid="uid://cbwf0f2rhdw0g"]
 
 [ext_resource type="Script" uid="uid://6mp37feabkrk" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://de5gubd8sfc7o" path="res://Assets/Player/player.png" id="3_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://ciys8i8yxd3ku" path="res://Scenes/bombardment_bullet.tscn" id="3_fkybt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
-radius = 70.0
+radius = 80.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=463890187]
 z_index = 1
 collision_layer = 4
 collision_mask = 8
@@ -15,13 +15,15 @@ motion_mode = 1
 script = ExtResource("1_cvnsp")
 bombardment_bullet_scene = ExtResource("3_fkybt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634198131]
 shape = SubResource("CircleShape2D_cvnsp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_v0iea")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1740385476]
+position = Vector2(0, -12.000001)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_6t5aa")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1286500990]
 process_mode = 3
 zoom = Vector2(2, 2)
 limit_left = 0
@@ -30,20 +32,21 @@ limit_right = 3000
 limit_bottom = 2000
 position_smoothing_enabled = true
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="." unique_id=878771734]
 one_shot = true
 
-[node name="UpgradeButton" type="Button" parent="."]
+[node name="UpgradeButton" type="Button" parent="." unique_id=36718924]
 process_mode = 2
 offset_left = -62.0
 offset_top = -63.0
 offset_right = 63.0
 offset_bottom = 63.0
+flat = true
 
-[node name="RegenerateTimer" type="Timer" parent="."]
+[node name="RegenerateTimer" type="Timer" parent="." unique_id=1564250377]
 wait_time = 5.0
 
-[node name="BombardmentTimer" type="Timer" parent="."]
+[node name="BombardmentTimer" type="Timer" parent="." unique_id=1264371292]
 wait_time = 7.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

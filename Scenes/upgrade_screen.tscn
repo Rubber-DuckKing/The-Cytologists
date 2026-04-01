@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2jypfkuovj3s"]
+[gd_scene format=3 uid="uid://c2jypfkuovj3s"]
 
 [ext_resource type="Script" uid="uid://ddnkwql3qytm5" path="res://Scripts/upgrade_screen.gd" id="1_g1a74"]
 [ext_resource type="PackedScene" uid="uid://dnvm2le3i0glm" path="res://Scenes/clone.tscn" id="2_g1a74"]
+[ext_resource type="Texture2D" uid="uid://bfla3y6l803t2" path="res://Assets/Cards/shine.png" id="3_g043t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0q7o"]
 bg_color = Color(0.18345043, 0.7449682, 0.9061694, 1)
@@ -15,22 +16,74 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[node name="UpgradeScreen" type="CanvasLayer"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfdqr"]
+atlas = ExtResource("3_g043t")
+region = Rect2(324, 185, 162, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54md0"]
+atlas = ExtResource("3_g043t")
+region = Rect2(0, 0, 162, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l53bo"]
+atlas = ExtResource("3_g043t")
+region = Rect2(162, 0, 162, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5wmx"]
+atlas = ExtResource("3_g043t")
+region = Rect2(324, 0, 162, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oxtv"]
+atlas = ExtResource("3_g043t")
+region = Rect2(0, 185, 162, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmf5r"]
+atlas = ExtResource("3_g043t")
+region = Rect2(162, 185, 162, 185)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kjkj4"]
+animations = [{
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_kfdqr")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_54md0")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_l53bo")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_l5wmx")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_2oxtv")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_gmf5r")
+}],
+"loop": false,
+"name": &"shine",
+"speed": 5.0
+}]
+
+[node name="UpgradeScreen" type="CanvasLayer" unique_id=1349368740]
 process_mode = 2
 script = ExtResource("1_g1a74")
 clone_scene = ExtResource("2_g1a74")
 
-[node name="UIRoot" type="Control" parent="."]
+[node name="UIRoot" type="Control" parent="." unique_id=1813590324]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -80.0
+offset_right = -80.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="UIRoot"]
+[node name="Panel" type="Panel" parent="UIRoot" unique_id=521686795]
 layout_mode = 0
 offset_left = -700.0
 offset_top = -507.0
@@ -39,64 +92,130 @@ offset_bottom = 575.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c0q7o")
 
-[node name="Button0" type="Button" parent="UIRoot"]
+[node name="Button0" type="Button" parent="UIRoot" unique_id=1647739376]
 process_mode = 2
 layout_mode = 0
 offset_left = -557.0
 offset_top = -304.0
 offset_right = -301.0
 offset_bottom = 8.0
+icon_alignment = 1
+expand_icon = true
 
-[node name="UpgradeLabel" type="Label" parent="UIRoot/Button0"]
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button0" unique_id=858459311]
 layout_mode = 0
 offset_left = -80.0
-offset_top = 336.0
+offset_top = 352.0
 offset_right = 332.0
-offset_bottom = 848.0
+offset_bottom = 864.0
 theme_override_font_sizes/font_size = 64
 text = "ijhugyf"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Button1" type="Button" parent="UIRoot"]
+[node name="CardIcon" type="TextureRect" parent="UIRoot/Button0" unique_id=93672707]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Shine" type="AnimatedSprite2D" parent="UIRoot/Button0" unique_id=1212819259]
+z_index = 1
+position = Vector2(121, 147)
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_kjkj4")
+animation = &"shine"
+
+[node name="Button1" type="Button" parent="UIRoot" unique_id=972345960]
 process_mode = 2
 layout_mode = 0
 offset_left = -76.0
 offset_top = -304.0
 offset_right = 180.0
 offset_bottom = 8.0
+icon_alignment = 1
+expand_icon = true
 
-[node name="UpgradeLabel" type="Label" parent="UIRoot/Button1"]
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button1" unique_id=477774675]
 layout_mode = 0
 offset_left = -69.5
-offset_top = 333.0
+offset_top = 349.0
 offset_right = 342.5
-offset_bottom = 845.0
+offset_bottom = 861.0
 theme_override_font_sizes/font_size = 64
 text = "oihugyt"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Button2" type="Button" parent="UIRoot"]
+[node name="CardIcon" type="TextureRect" parent="UIRoot/Button1" unique_id=1394402162]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Shine" type="AnimatedSprite2D" parent="UIRoot/Button1" unique_id=348200799]
+z_index = 1
+position = Vector2(121, 147)
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_kjkj4")
+animation = &"shine"
+
+[node name="Button2" type="Button" parent="UIRoot" unique_id=1008361889]
 process_mode = 2
 layout_mode = 0
 offset_left = 411.0
 offset_top = -304.0
 offset_right = 667.0
 offset_bottom = 8.0
+icon_alignment = 1
+expand_icon = true
 
-[node name="UpgradeLabel" type="Label" parent="UIRoot/Button2"]
+[node name="UpgradeLabel" type="Label" parent="UIRoot/Button2" unique_id=1358646763]
 layout_mode = 0
 offset_left = -78.0
-offset_top = 337.0
+offset_top = 353.0
 offset_right = 334.0
-offset_bottom = 849.0
+offset_bottom = 865.0
 theme_override_font_sizes/font_size = 64
 text = "ijohugyftcg"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label" type="Label" parent="UIRoot"]
+[node name="CardIcon" type="TextureRect" parent="UIRoot/Button2" unique_id=559851912]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Shine" type="AnimatedSprite2D" parent="UIRoot/Button2" unique_id=1668180005]
+z_index = 1
+position = Vector2(121, 147)
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_kjkj4")
+animation = &"shine"
+
+[node name="Label" type="Label" parent="UIRoot" unique_id=1989908937]
 layout_mode = 0
 offset_left = -680.0
 offset_top = -488.0
@@ -106,7 +225,43 @@ theme_override_font_sizes/font_size = 156
 text = "CHOOSE YOUR UPGRADE"
 horizontal_alignment = 1
 
-[node name="DisabledTimer" type="Timer" parent="UIRoot"]
+[node name="MutationPanel" type="PanelContainer" parent="UIRoot" unique_id=1813914369]
+layout_mode = 0
+offset_left = 814.0
+offset_top = -619.0
+offset_right = 1528.0
+offset_bottom = 807.0
+
+[node name="Margin" type="MarginContainer" parent="UIRoot/MutationPanel" unique_id=831801962]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Content" type="VBoxContainer" parent="UIRoot/MutationPanel/Margin" unique_id=1839811985]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MutationTitle" type="Label" parent="UIRoot/MutationPanel/Margin/Content" unique_id=1906585718]
+layout_mode = 2
+theme_override_font_sizes/font_size = 68
+text = "MUTATION REFERENCE"
+horizontal_alignment = 1
+
+[node name="MutationList" type="Label" parent="UIRoot/MutationPanel/Margin/Content" unique_id=85588465]
+custom_minimum_size = Vector2(582, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "- Regeneration: kills by this cell restore its health
+- Volatile: periodically explodes, damaging and knocking back nearby enemies
+- Influential: can pass its mutations to another allied cell
+- Contagious: attacks inflict poison that can spread between enemies
+- Tissue Repair: damaged cells can heal using health from allies
+- Paralysis: attacks can freeze enemies for 5 seconds"
+autowrap_mode = 3
+
+[node name="DisabledTimer" type="Timer" parent="UIRoot" unique_id=851592680]
 process_mode = 2
 wait_time = 0.5
 one_shot = true

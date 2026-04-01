@@ -1,42 +1,48 @@
-[gd_scene load_steps=15 format=3 uid="uid://dulf2yhtx8uug"]
+[gd_scene format=3 uid="uid://dulf2yhtx8uug"]
 
 [ext_resource type="Script" uid="uid://c1ewkrk7le0p8" path="res://Scripts/main.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cbwf0f2rhdw0g" path="res://Scenes/player.tscn" id="1_jjgbg"]
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://btablgw4shl4p" path="res://Scenes/game_ui.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://btxu3mvuef8ii" path="res://Scenes/enemy_spawner.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://cps1vm3spwlll" path="res://Scenes/loading_screen.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://c2jypfkuovj3s" path="res://Scenes/upgrade_screen.tscn" id="7_6bp64"]
+[ext_resource type="Texture2D" uid="uid://bf4eqyx1x1gak" path="res://Assets/menubg.png" id="8_k12tt"]
 [ext_resource type="Script" uid="uid://dn2lbpwybii7v" path="res://Scripts/music_controller.gd" id="8_wsu2k"]
+[ext_resource type="Texture2D" uid="uid://yon5ta3ffjl2" path="res://Assets/startbutton.png" id="9_b3802"]
 [ext_resource type="AudioStream" uid="uid://tn8885u5mc65" path="res://Assets/Audio/title.ogg" id="9_k12tt"]
+[ext_resource type="Texture2D" uid="uid://draocsho80cap" path="res://Assets/startbutton_hover.png" id="10_fevyy"]
 [ext_resource type="AudioStream" uid="uid://n8qr3dq05hy8" path="res://Assets/Audio/labratory_intro.ogg" id="10_h1bgf"]
 [ext_resource type="AudioStream" uid="uid://bceiatu132eon" path="res://Assets/Audio/labratory_loop.ogg" id="11_b3802"]
+[ext_resource type="Texture2D" uid="uid://usvs1o3nxc22" path="res://Assets/logo.png" id="11_hibaj"]
 [ext_resource type="AudioStream" uid="uid://b5h1vddpw4m6m" path="res://Assets/Audio/to_the_wire_intro.ogg" id="12_fevyy"]
 [ext_resource type="AudioStream" uid="uid://1rdnrnn7dgvn" path="res://Assets/Audio/to_the_wire_loop.ogg" id="13_hibaj"]
 [ext_resource type="AudioStream" uid="uid://dh0fqxdm36wu" path="res://Assets/Audio/spaceship.ogg" id="14_jkdf5"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_b3802"]
+font_size = 128
+
+[node name="Main" type="Node2D" unique_id=604657671]
 script = ExtResource("1_8gbba")
 
-[node name="Floor" type="Sprite2D" parent="."]
+[node name="Floor" type="Sprite2D" parent="." unique_id=1768086197]
 position = Vector2(1486.0001, 993.00006)
-scale = Vector2(26.179688, 18.9375)
-texture = ExtResource("2_bo1nx")
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("8_k12tt")
 
-[node name="UpgradeBackground" type="Sprite2D" parent="."]
+[node name="UpgradeBackground" type="Sprite2D" parent="." unique_id=1213277871]
 process_mode = 2
-position = Vector2(1695, 1015)
-scale = Vector2(13.179687, 9.390624)
-texture = ExtResource("2_bo1nx")
+position = Vector2(1489.9999, 999)
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("8_k12tt")
 
-[node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+[node name="Player" parent="." unique_id=1404668300 instance=ExtResource("1_jjgbg")]
 position = Vector2(1504, 1011)
 
-[node name="EnemySpawner" parent="." instance=ExtResource("5_kry3j")]
+[node name="EnemySpawner" parent="." unique_id=469332941 instance=ExtResource("5_kry3j")]
 
-[node name="LoadingScreen" parent="." instance=ExtResource("6_21xkr")]
+[node name="LoadingScreen" parent="." unique_id=938084969 instance=ExtResource("6_21xkr")]
 
-[node name="WaveStartLabel" type="Label" parent="."]
+[node name="WaveStartLabel" type="Label" parent="." unique_id=42622058]
 process_mode = 2
 offset_left = 943.0
 offset_top = 634.0
@@ -45,11 +51,11 @@ offset_bottom = 839.0
 theme_override_font_sizes/font_size = 150
 text = "Wave 1... FIGHT!"
 
-[node name="WaveStartTimer" type="Timer" parent="."]
+[node name="WaveStartTimer" type="Timer" parent="." unique_id=485377024]
 process_mode = 2
 one_shot = true
 
-[node name="DeathLabel" type="Label" parent="."]
+[node name="DeathLabel" type="Label" parent="." unique_id=1353673717]
 process_mode = 2
 offset_left = 922.0
 offset_top = 548.0
@@ -59,7 +65,7 @@ theme_override_font_sizes/font_size = 130
 text = "You Died!
 Survived: 1 wave(s)"
 
-[node name="RestartButton" type="Button" parent="."]
+[node name="RestartButton" type="Button" parent="." unique_id=375905816]
 process_mode = 2
 z_index = 10
 offset_left = 1104.0
@@ -69,64 +75,65 @@ offset_bottom = 1112.0
 theme_override_font_sizes/font_size = 120
 text = "RESTART"
 
-[node name="InspectUI" type="CanvasLayer" parent="."]
+[node name="InspectUI" type="CanvasLayer" parent="." unique_id=462747205]
 process_mode = 2
 layer = 20
 
-[node name="Panel" type="PanelContainer" parent="InspectUI"]
+[node name="Panel" type="PanelContainer" parent="InspectUI" unique_id=1451657215]
 custom_minimum_size = Vector2(520, 320)
 offset_left = 120.0
 offset_top = 120.0
 offset_right = 640.0
 offset_bottom = 440.0
 
-[node name="Margin" type="MarginContainer" parent="InspectUI/Panel"]
+[node name="Margin" type="MarginContainer" parent="InspectUI/Panel" unique_id=789014214]
 layout_mode = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="InfoLabel" type="Label" parent="InspectUI/Panel/Margin"]
+[node name="InfoLabel" type="Label" parent="InspectUI/Panel/Margin" unique_id=1547725984]
 custom_minimum_size = Vector2(472, 272)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "CELL"
 autowrap_mode = 3
 
-[node name="GameUI" parent="." instance=ExtResource("4_jjvhh")]
+[node name="GameUI" parent="." unique_id=1083647057 instance=ExtResource("4_jjvhh")]
 
-[node name="UpgradeScreen" parent="." instance=ExtResource("7_6bp64")]
+[node name="UpgradeScreen" parent="." unique_id=2138680044 instance=ExtResource("7_6bp64")]
 
-[node name="StartScreen" type="Sprite2D" parent="."]
+[node name="StartScreen" type="Sprite2D" parent="." unique_id=1033544280]
 z_index = 1
 position = Vector2(1519.4999, 984.9999)
-scale = Vector2(25.460936, 17.828125)
-texture = ExtResource("2_bo1nx")
+scale = Vector2(2, 2)
+texture = ExtResource("8_k12tt")
 
-[node name="StartButton" type="Button" parent="."]
+[node name="StartButton" type="TextureButton" parent="." unique_id=529494701]
 process_mode = 2
 z_index = 1
-offset_left = 692.0
-offset_top = 849.0
-offset_right = 2316.0
-offset_bottom = 1163.0
-theme_override_font_sizes/font_size = 200
-text = "START
-"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 720.6667
+offset_top = 798.0
+offset_right = 1279.1852
+offset_bottom = 1030.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("9_b3802")
+texture_hover = ExtResource("10_fevyy")
+stretch_mode = 0
 
-[node name="GameLabel" type="Label" parent="."]
+[node name="GameLabel" type="Sprite2D" parent="." unique_id=1160024293]
 z_index = 1
-offset_left = 807.0
-offset_top = 230.0
-offset_right = 2127.0
-offset_bottom = 530.0
-theme_override_colors/font_color = Color(0.9166399, 0.91663986, 0.9166398, 1)
-theme_override_font_sizes/font_size = 300
-text = "[GAME NAME]"
+position = Vector2(942.537, 512)
+scale = Vector2(4.574074, 4.5740743)
+texture = ExtResource("11_hibaj")
 
-[node name="CreditsLabel" type="Label" parent="."]
-z_index = 1
+[node name="CreditsLabel" type="Label" parent="." unique_id=1346035639]
+z_index = 2
 offset_left = 511.0
 offset_top = 1226.0
 offset_right = 2441.0
@@ -137,9 +144,21 @@ Ben Chen - Artist
 Ethan Dorosz - Lead Programmer
 Rizul Vyas - Sound Design
 Stanely Lin - Level Design"
+label_settings = SubResource("LabelSettings_b3802")
 autowrap_mode = 3
 
-[node name="MusicController" type="Node" parent="."]
+[node name="ColorRect" type="ColorRect" parent="CreditsLabel" unique_id=1471277622]
+z_index = 1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15775332, 0.15775332, 0.15775326, 0.45882353)
+
+[node name="MusicController" type="Node" parent="." unique_id=432921120]
 script = ExtResource("8_wsu2k")
 title_music = ExtResource("9_k12tt")
 laboratory_intro = ExtResource("10_h1bgf")
@@ -148,10 +167,11 @@ to_the_wire_intro = ExtResource("12_fevyy")
 to_the_wire_loop = ExtResource("13_hibaj")
 spaceship_music = ExtResource("14_jkdf5")
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="MusicController"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="MusicController" unique_id=1402336645]
 
 [connection signal="main_died" from="Player" to="." method="_on_player_main_died"]
 [connection signal="timeout" from="WaveStartTimer" to="." method="_on_wave_start_timer_timeout"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="chosen_upgrade" from="UpgradeScreen" to="." method="_on_upgrade_screen_chosen_upgrade"]
+[connection signal="devour_requested" from="UpgradeScreen" to="." method="_on_upgrade_screen_devour_requested"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

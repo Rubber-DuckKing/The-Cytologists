@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcqdxhwd8vy3f"]
+[gd_scene format=3 uid="uid://dcqdxhwd8vy3f"]
 
 [ext_resource type="Script" uid="uid://da5qj5s0lp4bp" path="res://Scripts/bacteriaphage.gd" id="1_1wpre"]
 [ext_resource type="PackedScene" uid="uid://bhikx7b073o4f" path="res://Scenes/bullet.tscn" id="2_7xq06"]
+[ext_resource type="Texture2D" uid="uid://dg2536oiei526" path="res://Assets/Enemy/bacteriaphage.png" id="3_7xq06"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wpre"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xbcne"]
+radius = 74.47
+height = 228.58
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1wpre"]
-radius = 100.0
-
-[node name="Bacteriaphage" type="RigidBody2D"]
+[node name="Bacteriaphage" type="RigidBody2D" unique_id=55814086]
 collision_layer = 8
 collision_mask = 76
 gravity_scale = 0.0
@@ -16,21 +16,20 @@ lock_rotation = true
 script = ExtResource("1_1wpre")
 bullet_scene = ExtResource("2_7xq06")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2.0000086, 0.5000019)
-scale = Vector2(134, 126.999985)
-texture = SubResource("PlaceholderTexture2D_1wpre")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=34335906]
+scale = Vector2(1.7307693, 1.7307693)
+texture = ExtResource("3_7xq06")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_1wpre")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1269477275]
+shape = SubResource("CapsuleShape2D_xbcne")
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="." unique_id=1649909533]
 one_shot = true
 
-[node name="MoveBackTimer" type="Timer" parent="."]
+[node name="MoveBackTimer" type="Timer" parent="." unique_id=311012784]
 one_shot = true
 
-[node name="Health" type="Label" parent="."]
+[node name="Health" type="Label" parent="." unique_id=796844057]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

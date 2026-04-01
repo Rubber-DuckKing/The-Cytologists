@@ -22,6 +22,8 @@ var chosen_cell: CharacterBody2D
 var sfx_controller: Node
 var inspect_mode := false
 var upgrade_selection_active := false
+var devour_selection_active := false
+var devour_target_cell: CharacterBody2D
 
 const TRANSITION_SPEED_SCALE := 2.5
 const SFX_CONTROLLER_SCRIPT = preload("res://Scripts/sfx_controller.gd")
@@ -83,6 +85,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if get_tree().paused:
 			return
 		await advance_wave()
+	elif event is InputEventKey and event.pressed and !event.echo and event.keycode == KEY_F7:
+		if $StartScreen.visible or $DeathLabel.visible or $RestartButton.visible:
+			return
+		if upgrade_selection_active or $UpgradeScreen.visible:
+			return
+		upgrade()
 	elif event is InputEventKey and event.pressed and !event.echo and event.keycode == KEY_TAB:
 		_toggle_inspect_mode()
 
@@ -92,7 +100,6 @@ func distance(pos1: Vector2, pos2: Vector2) -> float:
 func is_wave_completed():
 	var all_dead = true
 	var enemies = get_tree().get_nodes_in_group("enemies")
-	#check if all enemies have spawned first
 	if enemies.size() == enemy_amount:
 		for e in enemies:
 			if e.alive:
@@ -159,6 +166,9 @@ func upgrade():
 	$Player.get_node("Camera2D").zoom.y = 1.0
 
 func _on_cell_selected_for_upgrade(cell: CharacterBody2D):
+	if devour_selection_active:
+		_complete_devour(cell)
+		return
 	upgrade_selection_active = false
 	chosen_cell = cell
 	original_pos = cell.global_position
@@ -194,6 +204,9 @@ func upgrade_select():
 	$UpgradeScreen.show()
 
 func _on_upgrade_screen_chosen_upgrade() -> void:
+	_finish_upgrade_flow()
+
+func _finish_upgrade_flow() -> void:
 	$LoadingScreen.get_child(1).play("transition")
 	_play_sfx("play_ui_click")
 	await $LoadingScreen.get_child(1).animation_finished
@@ -215,6 +228,37 @@ func _on_upgrade_screen_chosen_upgrade() -> void:
 	for bullet in get_tree().get_nodes_in_group("bullets"):
 		bullet.show()
 	refresh_hud()
+
+func _on_upgrade_screen_devour_requested(target_cell: CharacterBody2D) -> void:
+	devour_selection_active = true
+	devour_target_cell = target_cell
+	$UpgradeScreen.hide()
+	$UpgradeBackground.hide()
+	$InspectUI.hide()
+	for cell in get_tree().get_nodes_in_group("cells"):
+		cell.show()
+		var upgrade_button: Button = cell.get_node("UpgradeButton")
+		upgrade_button.hide()
+		if cell != target_cell:
+			upgrade_button.show()
+	$Player.get_node("Camera2D").global_position = $Player.global_position
+	$Player.get_node("Camera2D").zoom.x = 1.0
+	$Player.get_node("Camera2D").zoom.y = 1.0
+
+func _complete_devour(sacrifice_cell: CharacterBody2D) -> void:
+	if !devour_selection_active:
+		return
+	if sacrifice_cell == null or !is_instance_valid(sacrifice_cell):
+		return
+	if sacrifice_cell == devour_target_cell:
+		return
+	devour_selection_active = false
+	if devour_target_cell != null and is_instance_valid(devour_target_cell):
+		devour_target_cell.health = devour_target_cell.max_health
+		if $UpgradeScreen.has_method("_apply_random_mutation"):
+			$UpgradeScreen._apply_random_mutation(devour_target_cell)
+	sacrifice_cell.queue_free()
+	_finish_upgrade_flow()
 
 func _on_start_button_pressed() -> void:
 	$LoadingScreen.get_child(1).play("transition")
@@ -353,13 +397,44 @@ func _build_cell_inspect_text(cell: CharacterBody2D) -> String:
 func _get_trait_lines(cell: CharacterBody2D) -> Array[String]:
 	var traits: Array[String] = []
 	if cell.has_method("get"):
+		if cell.get("cell_stage") == &"eukaryote":
+			traits.append("- Eukaryote")
 		if cell.get("beefy_level") > 0:
 			traits.append("- Beefy x " + str(cell.get("beefy_level")))
 		if cell.get("bombardment_level") > 0:
 			traits.append("- Bombardment x " + str(cell.get("bombardment_level")))
 		if cell.get("gang_up_level") > 0:
 			traits.append("- Gang Up x " + str(cell.get("gang_up_level")))
+		if cell.has_method("get_all_mutations"):
+			for mutation_id in cell.get_all_mutations():
+				traits.append("- " + _mutation_label(StringName(mutation_id)))
+		if cell.get("mutation_effectiveness") > 1.0:
+			traits.append("- Mitochondria x" + _format_multiplier(cell.get("mutation_effectiveness")))
+		if cell.get("poison_effectiveness") > 1.0:
+			traits.append("- Accelerant x" + _format_multiplier(cell.get("poison_effectiveness")))
 	return traits
+
+func _mutation_label(mutation_id: StringName) -> String:
+	if mutation_id == &"regeneration":
+		return "Regeneration"
+	if mutation_id == &"volatile":
+		return "Volatile"
+	if mutation_id == &"influential":
+		return "Influential"
+	if mutation_id == &"contagious":
+		return "Contagious"
+	if mutation_id == &"tissue_repair":
+		return "Tissue Repair"
+	if mutation_id == &"paralysis":
+		return "Paralysis"
+	if mutation_id == &"accelerant":
+		return "Accelerant"
+	return str(mutation_id).capitalize()
+
+func _format_multiplier(value: float) -> String:
+	if is_equal_approx(value, round(value)):
+		return str(int(round(value)))
+	return str(snappedf(value, 0.1))
 
 func _position_inspect_tooltip() -> void:
 	var panel: Control = $InspectUI.get_node("Panel")

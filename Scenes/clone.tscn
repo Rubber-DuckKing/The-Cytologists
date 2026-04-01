@@ -1,39 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnvm2le3i0glm"]
+[gd_scene format=3 uid="uid://dnvm2le3i0glm"]
 
 [ext_resource type="Script" uid="uid://c8bet64dn22k7" path="res://Scripts/clone.gd" id="1_eeqi5"]
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="2_p7wtv"]
 [ext_resource type="PackedScene" uid="uid://ciys8i8yxd3ku" path="res://Scenes/bombardment_bullet.tscn" id="2_r8xe5"]
+[ext_resource type="Texture2D" uid="uid://dieinrh5d2irb" path="res://Assets/Player/clone.png" id="3_p7wtv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqhld"]
 radius = 70.0
 
-[node name="Clone" type="CharacterBody2D"]
+[node name="Clone" type="CharacterBody2D" unique_id=1055845302]
 collision_layer = 64
 collision_mask = 72
 motion_mode = 1
 script = ExtResource("1_eeqi5")
 bombardment_bullet_scene = ExtResource("2_r8xe5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2111808993]
 shape = SubResource("CircleShape2D_cqhld")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_p7wtv")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1388537498]
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("3_p7wtv")
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="." unique_id=1977646837]
 one_shot = true
 
-[node name="UpgradeButton" type="Button" parent="."]
+[node name="UpgradeButton" type="Button" parent="." unique_id=737443831]
 process_mode = 2
 offset_left = -62.0
 offset_top = -63.0
 offset_right = 63.0
 offset_bottom = 63.0
+flat = true
 
-[node name="RegenerateTimer" type="Timer" parent="."]
+[node name="RegenerateTimer" type="Timer" parent="." unique_id=425436529]
 wait_time = 5.0
 
-[node name="BombardmentTimer" type="Timer" parent="."]
+[node name="BombardmentTimer" type="Timer" parent="." unique_id=198598959]
 wait_time = 7.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

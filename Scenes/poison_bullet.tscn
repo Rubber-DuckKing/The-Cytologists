@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b8ralifp8s0rv"]
+
+[ext_resource type="Script" uid="uid://bffe2qxu7x4lp" path="res://Scripts/poison_bullet.gd" id="1_70r6v"]
+[ext_resource type="Texture2D" uid="uid://dde26o3qcmac1" path="res://Assets/Enemy/bullet2.png" id="2_70r6v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4s2wq"]
+size = Vector2(55, 20)
+
+[node name="BombardmentBullet" type="Area2D" unique_id=815250073]
+collision_layer = 0
+collision_mask = 68
+script = ExtResource("1_70r6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2001038811]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_4s2wq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1277923982]
+scale = Vector2(0.709432, 0.7281013)
+texture = ExtResource("2_70r6v")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

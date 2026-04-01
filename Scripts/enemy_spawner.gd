@@ -1,5 +1,8 @@
 extends Node2D
 @export var enemy_scene: PackedScene
+@export var virus_scene: PackedScene
+@export_range(0.0, 1.0, 0.05) var virus_spawn_chance: float = 0.25
+@export var virus_health_multiplier: float = 0.5
 
 var spawn_points := []
 var time: float = 1.0
@@ -10,8 +13,9 @@ var xp_amount = 10
 
 const XP_VARIANCE_MIN := 0.8
 const XP_VARIANCE_MAX := 1.25
+const HEALTH_VARIANCE_MIN := 0.9
+const HEALTH_VARIANCE_MAX := 1.1
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	$Timer.wait_time = time
@@ -33,17 +37,23 @@ func _on_timer_timeout() -> void:
 	
 	var speed = randf_range(0.5,1.0)
 	
-	var enemy = enemy_scene.instantiate()
+	var chosen_scene: PackedScene = enemy_scene
+	var chosen_health: float = health
+	if virus_scene != null and randf() <= virus_spawn_chance:
+		chosen_scene = virus_scene
+		chosen_health *= virus_health_multiplier
+	var enemy = chosen_scene.instantiate()
 	
 	enemy.position = spawn.position
 	
 	enemy.speed = speed
 	
-	enemy.health = health
+	var rolled_health: int = max(1, int(round(chosen_health * randf_range(HEALTH_VARIANCE_MIN, HEALTH_VARIANCE_MAX))))
+	enemy.health = rolled_health
 	
 	enemy.xp_amount = max(1, int(round(xp_amount * randf_range(XP_VARIANCE_MIN, XP_VARIANCE_MAX))))
 	
-	enemy.max_health = health
+	enemy.max_health = rolled_health
 	
 	enemy.damage = damage
 	

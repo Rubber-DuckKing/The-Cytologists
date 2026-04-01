@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://btablgw4shl4p"]
+[gd_scene load_steps=6 format=3 uid="uid://btablgw4shl4p"]
 
-[ext_resource type="Texture2D" uid="uid://b1hekmpfqf6ne" path="res://icon.svg" id="1_gek4i"]
+[ext_resource type="Texture2D" uid="uid://de5gubd8sfc7o" path="res://Assets/Player/player.png" id="1_0j8pq"]
 [ext_resource type="Script" uid="uid://clvxph8nl6jwn" path="res://Scripts/game_ui.gd" id="2_ui"]
+[ext_resource type="Texture2D" uid="uid://dieinrh5d2irb" path="res://Assets/Player/clone.png" id="3_p1m9n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw2rt"]
 bg_color = Color(0.21568628, 0.21568628, 0.21568628, 0.89411765)
@@ -11,8 +12,8 @@ bg_color = Color(0.9705612, 0.7957391, 0.54469925, 1)
 
 [node name="GameUI" type="CanvasLayer"]
 script = ExtResource("2_ui")
-player_icon = ExtResource("1_gek4i")
-clone_icon = ExtResource("1_gek4i")
+player_icon = ExtResource("1_0j8pq")
+clone_icon = ExtResource("3_p1m9n")
 
 [node name="TopMargin" type="MarginContainer" parent="."]
 anchors_preset = 10

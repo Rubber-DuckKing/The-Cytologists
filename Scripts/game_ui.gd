@@ -8,8 +8,8 @@ extends CanvasLayer
 @onready var attack_bar: ProgressBar = $BottomLeftMargin/AttackPanel/AttackContent/AttackBar
 @onready var attack_label: Label = $BottomLeftMargin/AttackPanel/AttackContent/AttackLabel
 
-@export var player_icon: Texture2D
-@export var clone_icon: Texture2D
+const PLAYER_ICON := preload("res://Assets/Player/player.png")
+const CLONE_ICON := preload("res://Assets/Player/clone.png")
 
 var cell_bar_map: Dictionary = {}
 var clone_label_numbers: Dictionary = {}
@@ -90,6 +90,8 @@ func _update_cell_bar(bar: PanelContainer, cell: CharacterBody2D) -> void:
 		health_bar.add_theme_stylebox_override("fill", new_fill)
 
 	icon.texture = _icon_for_cell(cell)
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
 func _display_name_for_cell(cell: CharacterBody2D) -> String:
 	if cell.name == "Player":
@@ -118,8 +120,8 @@ func _health_color_for_ratio(ratio: float) -> Color:
 
 func _icon_for_cell(cell: CharacterBody2D) -> Texture2D:
 	if cell.name == "Player":
-		return player_icon
-	return clone_icon
+		return PLAYER_ICON
+	return CLONE_ICON
 
 func _clone_number_for_cell(cell: CharacterBody2D) -> int:
 	var cell_id: int = cell.get_instance_id()
